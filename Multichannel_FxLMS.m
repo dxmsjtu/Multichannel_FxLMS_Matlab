@@ -4,7 +4,8 @@
 % |  |\/|  | |  |     |______|   __|   >   <   |  |     |  |\/|  |     \   \
 % |  |  |  | |  `----.       |  |     /  .  \  |  `----.|  |  |  | .----)   |
 % |__|  |__|  \______|       |__|    /__/ \__\ |_______||__|  |__| |_______/
-
+% [1]Implementation of the Multichannel Filtered Reference Least Mean Square (McFxLMS) Algorithm with an Arbitrary Number of Channels by Using MATLAB
+% [2]Implementation of Kalman Filter Approach for Active Noise Control by Using MATLAB: Dynamic Noise Cancellation 
 classdef Multichannel_FxLMS
     properties
         controller % The control filter matrix: Wc--[Filter length x Control unit x Reference microphone]

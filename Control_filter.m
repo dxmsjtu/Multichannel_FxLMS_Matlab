@@ -1,4 +1,5 @@
 classdef Control_filter
+   % [1] 
     properties
         Sec_Matrix %--The coefficients of the secondary path (Ls x E_num).
         umW        %--The step size of the algorithm.
@@ -43,15 +44,25 @@ classdef Control_filter
             Fd1 = obj.Fd  ;
             Yd1 = obj.Yd  ;
             Sec_Matrix1 = obj.Sec_Matrix;
+            % Sec_Matrix %--The coefficients of the secondary path (Ls x E_num).
+            % umW        %--The step size of the algorithm.
+            % Len        %--The length of the control filter.
+            % Ls         %--The length of the secondary path.
+            % Wc         %--The contorl filter.
+            % Fd         %--The buffer of the control filter (Len x E_num).
+            % E_num      %--The number of the error microphones
+            % Xd         %--The delay line of the reference
+            % Xf         %--The delay line of the filtered reference.
+            % Yd         %--The delay line of the control filter output.
             %---------------------------->>>----------------------<<<
             Xd1  = [xin;Xd1(1:end-1)];
             Xf1  = [xin;Xf1(1:end-1)];
-            Wc1  = Wc1 - umW1 * Fd1 * Er;
-            y_o  = Wc1'*Xd1 ; 
-            Yd1  = [y_o;Yd1(1:end-1)];
-            y_anti = Sec_Matrix1' * Yd1;
-            fd  = Sec_Matrix1' * Xf1 ;
-            Fd1  = [fd'; Fd1(1:end-1,:)];
+            Wc1  = Wc1 - umW1 * Fd1 * Er;% (6) of [2]
+            y_o  = Wc1'*Xd1 ;            % (3) of [1]
+            Yd1  = [y_o;Yd1(1:end-1)];   % (4) of [1]
+            y_anti = Sec_Matrix1' * Yd1; % (4) of [1]
+            fd  = Sec_Matrix1' * Xf1 ;%--The buffer of the control filter (Len x E_num).
+            Fd1  = [fd'; Fd1(1:end-1,:)];% (10) of [1]
             %---------------------------->>>----------------------<<<
             obj.Xd = Xd1;
             obj.Xf = Xf1;
